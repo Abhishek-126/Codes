@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 60px;
+            /* Space for fixed navbar */
+        }
+
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .recipe-card {
+            margin-bottom: 20px;
+        }
+
+        .recipe-card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .recipe-card .card-body {
+            padding: 1.25rem;
+        }
+
+        .recipe-card h5.card-title {
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-card p.card-text {
+            margin-bottom: 1rem;
+        }
+
+        .recipe-modal .modal-dialog {
+            max-width: 800px;
+        }
+
+        .recipe-modal .modal-body {
+            padding: 1.5rem;
+        }
+
+        .recipe-modal img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Recipe Book</a>
+            <!-- Add a search form if needed -->
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Recipe Cards -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="recipe-card">
+                    <div class="card">
+                        <img class="card-img-top"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT54vxH2qFQaaEuX_oTzFOMfHrNrcRYg1JA_w&s"
+                            alt="Recipe Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Pav Bhaji</h5>
+                            <p class="card-text">Pav bhaji is a popular Indian street food dish originating from
+                                Maharashtra. It consists of a spicy vegetable mash (bhaji) typically made from potatoes,
+                                peas, tomatoes, and a variety of spices, served with buttered bread rolls (pav).</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#recipeModal1">View
+                                Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more recipe cards -->
+
+        </div>
+    </div>
+
+    <!-- Recipe Modal -->
+    <div class="modal fade recipe-modal" id="recipeModal1" tabindex="-1" role="dialog"
+        aria-labelledby="recipeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recipeModalLabel">Recipe Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT54vxH2qFQaaEuX_oTzFOMfHrNrcRYg1JA_w&s"
+                        alt="Recipe Image" class="img-fluid mb-3">
+                    <h5>Ingredients</h5>
+                    <ul>
+                        <li>Potatoes</li>
+                        <li>Peas</li>
+                        <li>Tomatoes</li>
+                        <li>Bell peppers (capsicum)</li>
+                        <li>Onions</li>
+                        <li>Garlic</li>
+                        <li>Ginger</li>
+                        <li>Green chilies (optional, for heat)</li>
+                        <li>Pav bhaji masala (a spice blend)</li>
+                        <li>Turmeric powder</li>
+                        <li>Red chili powder</li>
+                        <li>Cumin seeds</li>
+                        <li>Butter or oil</li>
+                        <li>Salt</li>
+                        <li>Water</li>
+                        <!-- List all ingredients -->
+                    </ul>
+                    <h5>Instructions</h5>
+                    <p>
+                       1.Boil and Mash Potatoes: Peel and chop potatoes into cubes. Boil them until soft. Drain and mash
+                        them coarsely with a potato masher or fork. <br>
+
+                       2.Prepare Vegetables: Finely chop onions, tomatoes, bell peppers (capsicum), garlic, ginger, and
+                        green chilies.<br>
+
+                       3.Cooking: Heat a large pan or kadhai over medium heat and add butter or oil.<br>
+
+                        Cooking the Bhaji:<br>
+
+                       1.Tempering: Add cumin seeds and let them splutter. Then add chopped garlic and green chilies.
+                        Saute until garlic turns golden.<br>
+
+                       2.Onions and Capsicum: Add chopped onions and bell peppers (capsicum). Cook until they turn soft
+                        and translucent.<br>
+
+                       3.Tomatoes: Add chopped tomatoes. Cook until tomatoes become soft and oil starts to separate from
+                        the mixture.<br>
+
+                       4.Spices: Add turmeric powder, red chili powder, and pav bhaji masala. Mix well and cook for a
+                        minute to roast the spices.<br>
+
+                       5.Mashed Potatoes and Peas: Add the mashed potatoes and peas to the pan. Mix everything together
+                        thoroughly.<br>
+
+                       6.Mashing and Simmering: Use a potato masher to mash everything together while it simmers. Add
+                        water gradually to achieve the desired consistency. Season with salt to taste.<br>
+
+                       7.Simmer: Let the bhaji simmer on low heat for about 10-15 minutes, stirring occasionally. This
+                        helps to blend the flavors together.<br>
+
+                        Preparing Pav:<br>
+
+                       1.Toasting Pav: Slit the pav rolls horizontally without cutting them completely into two parts.
+                        Heat a griddle or tava and toast the pav with a little butter until they are lightly browned and
+                        crisp on the surface.<br>
+
+                        Serving:<br>
+
+                       1.Plate the Bhaji: Transfer the hot bhaji to a serving plate. Garnish with chopped onions, chopped
+                        cilantro (coriander leaves), and a lemon wedge.<br>
+
+                       2.Serve: Serve hot pav bhaji with toasted pav rolls and additional butter on the side.<br>
+
+                        Enjoy your delicious pav bhaji!
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS (optional for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+</body>
+
+</html>

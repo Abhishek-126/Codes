@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Learning Platform</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 60px; /* Space for fixed navbar */
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .course-card {
+            margin-bottom: 20px;
+        }
+        .course-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .course-card .card-body {
+            padding: 1.25rem;
+        }
+        .course-card h5.card-title {
+            margin-bottom: 0.5rem;
+        }
+        .course-card p.card-text {
+            margin-bottom: 1rem;
+        }
+        .course-modal .modal-dialog {
+            max-width: 800px;
+        }
+        .course-modal .modal-body {
+            padding: 1.5rem;
+        }
+        .course-modal img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Online Learning Platform</a>
+            <!-- Add a search form if needed -->
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Course Cards -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="course-card">
+                    <div class="card">
+                        <img class="card-img-top" src="https://img.freepik.com/free-photo/global-business-internet-network-connection-iot-internet-things-business-intelligence-concept-busines-global-network-futuristic-technology-background-ai-generative_1258-176762.jpg" alt="Course Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Course Name</h5>
+                            <p class="card-text">Short description or summary of the course.</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#courseModal1">View Course</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more course cards -->
+
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div class="modal fade course-modal" id="courseModal1" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseModalLabel">Course Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://img.freepik.com/free-photo/global-business-internet-network-connection-iot-internet-things-business-intelligence-concept-busines-global-network-futuristic-technology-background-ai-generative_1258-176762.jpg" alt="Course Image" class="img-fluid mb-3">
+                    <h5>Description</h5>
+                    <p>
+                        Detailed description of the course content and objectives.
+                    </p>
+                    <h5>Syllabus</h5>
+                    <ul>
+                        <li>Module 1: Topic A</li>
+                        <li>Module 2: Topic B</li>
+                        <!-- List all modules and topics -->
+                    </ul>
+                    <h5>Reviews</h5>
+                    <p>
+                        Reviews and ratings from enrolled students.
+                    </p>
+                    <form>
+                        <div class="form-group">
+                            <label for="studentName">Your Name</label>
+                            <input type="text" class="form-control" id="studentName" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentEmail">Your Email</label>
+                            <input type="email" class="form-control" id="studentEmail" placeholder="Enter your email">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enroll Now</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS (optional for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+</body>
+</html>

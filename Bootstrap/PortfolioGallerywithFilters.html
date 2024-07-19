@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Gallery with Filters</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Isotope CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.min.css">
+    <style>
+        /* Custom styles for the portfolio gallery */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 60px; /* Space for fixed navbar */
+        }
+        .portfolio-item {
+            margin-bottom: 30px;
+        }
+        .portfolio-img {
+            overflow: hidden;
+        }
+        .portfolio-img img {
+            transition: transform 0.3s ease;
+        }
+        .portfolio-img img:hover {
+            transform: scale(1.1);
+        }
+        .filter-btns {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .filter-btn {
+            margin: 0 10px;
+            padding: 8px 16px;
+            border: 1px solid #007bff;
+            color: #007bff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .filter-btn.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Portfolio Gallery</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <!-- Add your navigation links here if needed -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Portfolio Gallery -->
+    <div class="container">
+        <div class="filter-btns">
+            <button class="filter-btn active" data-filter="*">All</button>
+            <button class="filter-btn" data-filter=".web">Web Design</button>
+            <button class="filter-btn" data-filter=".graphic">Graphic Design</button>
+            <button class="filter-btn" data-filter=".illustration">Illustration</button>
+            <!-- Add more filter buttons as needed -->
+        </div>
+
+        <div class="row portfolio-items">
+            <div class="col-lg-4 col-md-6 portfolio-item web">
+                <div class="portfolio-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe2GwSnBHMJToBd-eLWfuybICaj0AA5_Jcig&s" class="img-fluid" alt="Portfolio Item">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 portfolio-item graphic">
+                <div class="portfolio-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOIXy6hq_0IIZ5fOnS7KlmqcXPt2r63FoRkA&s" class="img-fluid" alt="Portfolio Item">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 portfolio-item illustration">
+                <div class="portfolio-img">
+                    <img src="https://visme.co/blog/wp-content/uploads/2021/10/what-is-graphic-design-header-1200.png" class="img-fluid" alt="Portfolio Item">
+                </div>
+            </div>
+            <!-- Add more portfolio items with appropriate classes -->
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Isotope JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+    <script>
+        // Initialize Isotope
+        $('.portfolio-items').isotope({
+            itemSelector: '.portfolio-item',
+            layoutMode: 'fitRows'
+        });
+
+        // Filter buttons click event
+        $('.filter-btn').click(function() {
+            $('.filter-btn').removeClass('active');
+            $(this).addClass('active');
+
+            var selector = $(this).attr('data-filter');
+            $('.portfolio-items').isotope({
+                filter: selector
+            });
+            return false;
+        });
+    </script>
+</body>
+</html>

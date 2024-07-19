@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>This is Head Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/modern-normalize@2.0.0/modern-normalize.min.css" rel="stylesheet">
+  <style>
+      /* CSS Clearfix */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Normalize CSS */
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* HTML Basic CSS */
+body {
+  line-height: 1.4em;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  color: #666666;
+}
+a {
+  text-decoration: none;
+  color: #de6581;
+}
+h1,
+h2,
+h3 {
+  font-weight: normal;
+}
+h3 {
+  color: #de6581;
+}
+
+/* HTML Basic Structure CSS */
+body {
+  margin: 0;
+  background-color: #ffffff;
+  background-image: url("https://assets.codepen.io/573765/dark-wood.jpg");
+  background-position: center;
+}
+#wrapper {
+  margin: 20px auto;
+  width: 940px;
+  border: 0;
+  background-color: #ffffff;
+}
+
+/* HTML Header CSS */
+#wrapper > header {
+  height: 160px;
+  background-image: url("https://assets.codepen.io/573765/header.jpg");
+}
+#wrapper > header h1 {
+  text-indent: -9999px;
+  width: 940px;
+  height: 130px;
+  margin: 0;
+}
+#wrapper > header nav {
+  height: 30px;
+  background-color: #aeaca8;
+  color: #ffffff;
+}
+#wrapper > header nav ul {
+  margin: 0;
+  padding: 5px 0 5px 30px;
+}
+#wrapper > header nav li {
+  display: inline;
+  margin-right: 40px;
+}
+#wrapper > header nav li a {
+  color: #ffffff;
+}
+#wrapper > header nav li a:hover,
+#wrapper > header nav li a.current {
+  color: #000000;
+}
+
+/* HTML Main CSS */
+main::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+main section.courses {
+  float: left;
+  width: 660px;
+  border-right: 1px solid #eeeeee;
+  padding: 0 20px 0 0;
+}
+main aside {
+  float: left;
+  width: 230px;
+  padding: 0 0 0 20px;
+}
+main section.courses article::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+main section.courses article figure {
+  float: left;
+  margin: 20px 0 20px 20px;
+  width: 300px;
+  height: 230px;
+  border: 1px solid #eeeeee;
+  padding: 5px;
+}
+main section.courses article img {
+  width: 100%;
+}
+main section.courses article figcaption {
+  font-size: 90%;
+  text-align: left;
+}
+main section.courses .word-content {
+  float: right;
+  width: 300px;
+}
+main section.courses .word-content h2 {
+  margin: 35px 0 5px 0;
+}
+main section.courses .word-content h3 {
+  margin: 0 0 10px 0;
+}
+main aside h2 {
+  margin: 35px 0 10px 0;
+  color: #de6581;
+}
+main aside section a {
+  display: block;
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px;
+}
+main aside section a:hover {
+  background-color: #eeeeee;
+  color: #985d6a;
+}
+
+/* HTML Footer CSS */
+#wrapper > footer {
+  background-color: #aeaca8;
+  padding: 7px 0 7px 20px;
+  font-size: 80%;
+  color: #ffffff;
+}
+#wrapper > footer p {
+  margin: 0;
+}   
+  </style>
+</head>
+
+<body>
+  <div id="wrapper">
+    <header>
+      <h1>Yoko's Kitchen</h1>
+      <nav>
+        <ul>
+          <li><a href="" class="current">home</a></li>
+          <li><a href="">classes</a></li>
+          <li><a href="">catering</a></li>
+          <li><a href="">about</a></li>
+          <li><a href="">contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="courses">
+        <article>
+          <div class="word-content">
+            <hgroup>
+              <h2>Japanese Vegetarian</h2>
+              <h3>Five week course in London</h3>
+            </hgroup>
+            <p>A five week introduction to traditional Japanese vegetarian meals, teaching you a selection of rice and noodle dishes.</p>
+          </div>
+          <figure>
+            <img src="https://assets.codepen.io/573765/bok-choi.jpg" alt="Bok Choi">
+            <figcaption>Bok Choi</figcaption>
+          </figure>
+        </article>
+        <article>
+          <div class="word-content">
+            <hgroup>
+              <h2>Sauces Masterclass</h2>
+              <h3>One day workshop</h3>
+            </hgroup>
+            <p>An intensive one-day course looking at how to create the most delicious sauces for use in a range of Japanese cookery.</p>
+          </div>
+          <figure>
+            <img src="https://assets.codepen.io/573765/teriyaki.jpg" alt="Teriyaki sauce">
+            <figcaption>Teriyaki Sauce</figcaption>
+          </figure>
+        </article>
+      </section>
+      <aside>
+        <section class="popular-recipes">
+          <h2>Popular Recipes</h2>
+          <a href="">Yakitori (grilled chicken)</a>
+          <a href="">Tsukune (minced chicken patties)</a>
+          <a href="">Okonomiyaki (savory pancakes)</a>
+          <a href="">Mizutaki (chicken stew)</a>
+        </section>
+        <section class="contact-details">
+          <h2>Contact</h2>
+          <p>Yoko's Kitchen<br>
+            27 Redchurch Street<br>
+            Shoreditch<br>
+            London E2 7DP</p>
+        </section>
+      </aside>
+    </main>
+    <footer>
+      <p>&copy; 2023 Yoko's Kitchen</p>
+    </footer>
+  </div>
+</body>
+</html>
+<!--
+    Summary:-
+1.The new HTML5 elements indicate the purpose of
+different parts of a web page and help to describe
+its structure.
+2.The new elements provide clearer code (compared
+with using multiple <div> elements).
+3.Older browsers that do not understand HTML5
+elements need to be told which elements are
+block-level elements.
+4.To make HTML5 elements work in Internet Explorer 8
+(and older versions of IE), extra JavaScript is needed,
+which is available free from Google.
+-->

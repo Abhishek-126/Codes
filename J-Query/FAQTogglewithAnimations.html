@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Toggle with Animations</title>
+    <style>
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .question {
+            cursor: pointer;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .answer {
+            display: none; /* Initially hide answers */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-item">
+        <div class="question">What is jQuery?</div>
+        <div class="answer">jQuery is a fast, small, and feature-rich JavaScript library.</div>
+    </div>
+    <div class="faq-item">
+        <div class="question">Why use jQuery?</div>
+        <div class="answer">jQuery simplifies HTML document traversing, event handling, animating, and Ajax interactions.</div>
+    </div>
+    <div class="faq-item">
+        <div class="question">How do I use jQuery?</div>
+        <div class="answer">Include jQuery library in your HTML file and write jQuery code to manipulate DOM elements.</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.question').click(function() {
+                var answer = $(this).next('.answer');
+                answer.slideToggle();
+            });
+        });
+    </script>
+</body>
+</html>

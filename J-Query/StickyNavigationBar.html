@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Navigation Bar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+        .content {
+            padding-top: 80px; /* Adjust according to navbar height */
+            text-align: center;
+            height: 2000px; /* For demo scroll */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar" id="navbar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div class="content">
+        <h1>Sticky Navigation Bar Example</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce malesuada metus eu ante consequat, at posuere nulla fermentum. Curabitur at tristique quam.</p>
+        <p>Sed eget dolor libero. Nulla sit amet purus a dui consequat aliquet. Mauris non odio consequat, faucibus sapien ac, consectetur risus.</p>
+        <!-- Place more content here to scroll -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var navbar = $('#navbar');
+            var lastScrollTop = 0;
+            var navbarHeight = navbar.outerHeight();
+
+            $(window).scroll(function() {
+                var scrollTop = $(this).scrollTop();
+
+                // Check if user is scrolling up or down
+                if (scrollTop > lastScrollTop) {
+                    // Downscroll code
+                    navbar.css('top', -navbarHeight); // Hide navbar on downscroll
+                } else {
+                    // Upscroll code
+                    navbar.css('top', 0); // Show navbar on upscroll
+                }
+
+                lastScrollTop = scrollTop;
+            });
+        });
+    </script>
+</body>
+</html>

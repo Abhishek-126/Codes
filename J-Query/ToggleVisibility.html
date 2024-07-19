@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Visibility</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .paragraph {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn">Toggle Paragraph</button>
+    <p class="paragraph">This is a paragraph that will be toggled.</p>
+
+    <script>
+        $(document).ready(function() {
+            $('.btn').click(function() {
+                $('.paragraph').toggle();
+            });
+        });
+    </script>
+</body>
+</html>

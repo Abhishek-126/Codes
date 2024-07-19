@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Image Gallery</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /*try 22% gap with width 550%*/
+        }
+        .thumbnail {
+            width: 100px;
+            cursor: pointer;
+        }
+        .thumbnail img {
+            width: 100%; /*here 550% */
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            transition: transform 0.2s;
+        }
+        .thumbnail img:hover {
+            transform: scale(1.1);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            border: 5px solid #fff;
+            border-radius: 10px;
+        }
+        .lightbox:target {
+            display: flex;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #333;
+            text-align: center;
+            line-height: 1em;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <div class="thumbnail" data-full="https://wallpapers.com/images/high/gojo-sataru-dv41z7z5yya02vw3.webp">
+            <img src="https://wallpapers.com/images/high/gojo-sataru-dv41z7z5yya02vw3.webp" alt="Thumbnail 1">
+        </div>
+        <div class="thumbnail" data-full="https://wallpapers.com/images/high/gojo-satoru-wearing-shades-t87xhe4js6yl4uc5.webp">
+            <img src="https://wallpapers.com/images/high/gojo-satoru-wearing-shades-t87xhe4js6yl4uc5.webp" alt="Thumbnail 2">
+        </div>
+        <div class="thumbnail" data-full="https://wallpapers.com/images/high/gojo-satoru-shining-eyes-vzqm510xmlaiwyx3.webp">
+            <img src="https://wallpapers.com/images/high/gojo-satoru-shining-eyes-vzqm510xmlaiwyx3.webp" alt="Thumbnail 3">
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close">&times;</span>
+        <img src="" alt="Full-size image">
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Open lightbox
+            $('.thumbnail').click(function() {
+                const fullSizeImageUrl = $(this).data('full');
+                $('#lightbox img').attr('src', fullSizeImageUrl);
+                $('#lightbox').fadeIn();
+            });
+
+            // Close lightbox
+            $('.close').click(function() {
+                $('#lightbox').fadeOut();
+            });
+
+            // Close lightbox when clicking outside the image
+            $('#lightbox').click(function(e) {
+                if (e.target === this) {
+                    $(this).fadeOut();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

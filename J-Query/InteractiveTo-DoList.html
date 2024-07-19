@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive To-Do List</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .add-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+        .todo-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .todo-list button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background-color: #ffc107;
+            color: #fff;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-group">
+        <input type="text" id="todoInput" placeholder="Add a new task">
+        <button class="add-btn" id="addBtn">Add</button>
+    </div>
+    <ul class="todo-list" id="todoList"></ul>
+
+    <script>
+        $(document).ready(function() {
+            $('#addBtn').click(function() {
+                const todoText = $('#todoInput').val().trim();
+                if (todoText !== '') {
+                    const newTask = `<li>${todoText} 
+                        <button class="edit-btn">Edit</button> 
+                        <button class="delete-btn">Delete</button>
+                    </li>`;
+                    $('#todoList').append(newTask);
+                    $('#todoInput').val('');
+                }
+            });
+
+            $('#todoList').on('click', '.delete-btn', function() {
+                $(this).parent().remove();
+            });
+
+            $('#todoList').on('click', '.edit-btn', function() {
+                const taskText = $(this).parent().text().replace('Edit','').replace('Delete','').trim();
+                $('#todoInput').val(taskText);
+                $(this).parent().remove();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .timer {
+            font-size: 3em;
+            color: #333;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer">10:00</div>
+    <button class="btn" id="startBtn">Start Timer</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var timerInterval; // Variable to hold the interval ID
+            var timeInSeconds = 600; // Initial time in seconds (10 minutes)
+
+            // Function to update the timer display
+            function updateTimerDisplay() {
+                var minutes = Math.floor(timeInSeconds / 60);
+                var seconds = timeInSeconds % 60;
+                var display = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                $('.timer').text(display);
+            }
+
+            // Function to start the countdown timer
+            $('#startBtn').click(function() {
+                if (timerInterval) return; // Prevent multiple timers
+
+                timerInterval = setInterval(function() {
+                    timeInSeconds--;
+
+                    if (timeInSeconds < 0) {
+                        clearInterval(timerInterval); // Stop the timer
+                        $('.timer').text('Time\'s up!');
+                        return;
+                    }
+
+                    updateTimerDisplay(); // Update timer display
+                }, 1000); // Update every second (1000 milliseconds)
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Search and Filter</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .thumbnail {
+            width: 150px;
+            cursor: pointer;
+            position: relative;
+        }
+        .thumbnail img {
+            width: 100%;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            transition: transform 0.2s;
+        }
+        .thumbnail img:hover {
+            transform: scale(1.1);
+        }
+        .thumbnail p {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 0;
+            font-size: 0.9em;
+            width: calc(100% - 10px);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            border: 5px solid #fff;
+            border-radius: 10px;
+        }
+        .lightbox:target {
+            display: flex;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #333;
+            text-align: center;
+            line-height: 1em;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" class="search-box" placeholder="Type to filter images...">
+    <div class="gallery">
+        <div class="thumbnail" data-full="https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=1467&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-title="Mountain">
+            <img src="https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=1467&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mountain">
+            <p>Mountain</p>
+        </div>
+        <div class="thumbnail" data-full="https://images.unsplash.com/photo-1473186578172-c141e6798cf4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8fA%3D%3D" data-title="Beach">
+            <img src="https://images.unsplash.com/photo-1473186578172-c141e6798cf4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8fA%3D%3D" alt="Beach">
+            <p>Beach</p>
+        </div>
+        <div class="thumbnail" data-full="https://plus.unsplash.com/premium_photo-1661963748474-56c522a0921a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Zm9yZXN0fGVufDB8fDB8fHww" data-title="Forest">
+            <img src="https://plus.unsplash.com/premium_photo-1661963748474-56c522a0921a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Zm9yZXN0fGVufDB8fDB8fHww" alt="Forest">
+            <p>Forest</p>
+        </div>
+        <div class="thumbnail" data-full="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2l0eXxlbnwwfHwwfHx8MA%3D%3D" data-title="City">
+            <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2l0eXxlbnwwfHwwfHx8MA%3D%3D" alt="City">
+            <p>City</p>
+        </div>
+        <div class="thumbnail" data-full="https://images.unsplash.com/20/dusty-sky.JPG?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZGVzZXJ0fGVufDB8fDB8fHww" data-title="Desert">
+            <img src="https://images.unsplash.com/20/dusty-sky.JPG?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZGVzZXJ0fGVufDB8fDB8fHww" alt="Desert">
+            <p>Desert</p>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close">&times;</span>
+        <img src="" alt="Full-size image">
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Open lightbox
+            $('.thumbnail').click(function() {
+                const fullSizeImageUrl = $(this).data('full');
+                $('#lightbox img').attr('src', fullSizeImageUrl);
+                $('#lightbox').fadeIn();
+            });
+
+            // Close lightbox
+            $('.close').click(function() {
+                $('#lightbox').fadeOut();
+            });
+
+            // Close lightbox when clicking outside the image
+            $('#lightbox').click(function(e) {
+                if (e.target === this) {
+                    $(this).fadeOut();
+                }
+            });
+
+            // Filter gallery
+            $('.search-box').keyup(function() {
+                const searchTerm = $(this).val().toLowerCase();
+                $('.thumbnail').each(function() {
+                    const title = $(this).data('title').toLowerCase();
+                    if (title.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

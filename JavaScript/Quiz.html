@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .quiz-container h1 {
+            text-align: center;
+        }
+        .question {
+            font-size: 1.2em;
+            margin: 20px 0 10px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .option:hover {
+            background-color: #ddd;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Trivia Quiz</h1>
+        <div id="question-container" class="hidden">
+            <div id="question" class="question"></div>
+            <div id="options" class="options"></div>
+            <button id="next-button" onclick="nextQuestion()" class="hidden">Next</button>
+        </div>
+        <div id="result" class="result hidden"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is the capital of France?",
+                options: ["Paris", "London", "Berlin", "Madrid"],
+                correct: "Paris"
+            },
+            {
+                question: "Who wrote 'To Kill a Mockingbird'?",
+                options: ["Harper Lee", "Mark Twain", "J.K. Rowling", "Ernest Hemingway"],
+                correct: "Harper Lee"
+            },
+            {
+                question: "What is the smallest planet in our solar system?",
+                options: ["Earth", "Mars", "Mercury", "Venus"],
+                correct: "Mercury"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('question-container').classList.remove('hidden');
+            showQuestion();
+        });
+
+        function showQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const currentQuestion = quizData[currentQuestionIndex];
+
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = '';
+
+            currentQuestion.options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.textContent = option;
+                optionElement.className = 'option';
+                optionElement.onclick = () => selectOption(option);
+                optionsElement.appendChild(optionElement);
+            });
+
+            document.getElementById('next-button').classList.add('hidden');
+        }
+
+        function selectOption(option) {
+            const currentQuestion = quizData[currentQuestionIndex];
+
+            if (option === currentQuestion.correct) {
+                score++;
+            }
+
+            Array.from(document.getElementsByClassName('option')).forEach(element => {
+                element.classList.add('disabled');
+                element.onclick = null;
+                if (element.textContent === currentQuestion.correct) {
+                    element.style.backgroundColor = '#d4edda'; // Correct answer green
+                } else {
+                    element.style.backgroundColor = '#f8d7da'; // Wrong answer red
+                }
+            });
+
+            document.getElementById('next-button').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('question-container').classList.add('hidden');
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `Quiz Finished! Your score is ${score} out of ${quizData.length}.`;
+            resultElement.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

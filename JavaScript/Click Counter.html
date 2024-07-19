@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .counter {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button2 {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #ff0022;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button2:hover {
+            background-color: #a00a17;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="counter">0</div>
+        <button class="button">Increment</button>
+        <button class="button2">Decrement</button>
+    </div>
+
+    <script>
+        // JavaScript to handle click event and update counter
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let count = 0;
+            const counterElement = document.querySelector('.counter');
+            const buttonElement = document.querySelector('.button');
+            const buttonElement2 = document.querySelector('.button2');
+
+            buttonElement.addEventListener('click', () => {
+                count++;
+                counterElement.textContent = count;
+            });
+            buttonElement2.addEventListener('click', () => {
+                count--;
+                counterElement.textContent = count;
+            });
+
+        });
+    </script>
+</body>
+</html>

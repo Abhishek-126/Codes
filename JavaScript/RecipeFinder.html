@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .recipe {
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .recipe img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .recipe h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .recipe p {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recipe Finder</h1>
+        <input type="text" id="ingredients" placeholder="Enter ingredients (comma separated)" />
+        <button onclick="findRecipes()">Search</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function findRecipes() {
+            const ingredients = document.getElementById('ingredients').value;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Loading...</p>';
+
+            const appId = '76373ef6'; // Replace with your Edamam API ID
+            const appKey = '57576d25026299b3ba14bd5588a6f03e'; // Replace with your Edamam API Key
+            const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${appId}&app_key=${appKey}&to=5`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                if (data.hits.length === 0) {
+                    resultsDiv.innerHTML = '<p>No recipes found.</p>';
+                    return;
+                }
+
+                resultsDiv.innerHTML = data.hits.map(hit => {
+                    const recipe = hit.recipe;
+                    return `
+                        <div class="recipe">
+                            <img src="${recipe.image}" alt="${recipe.label}" />
+                            <h3>${recipe.label}</h3>
+                            <p><b>Ingredients:</b> ${recipe.ingredientLines.join(', ')}</p>
+                            <p><b>Source:</b> <a href="${recipe.url}" target="_blank">${recipe.source}</a></p>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                resultsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

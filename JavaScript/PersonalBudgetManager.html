@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Budget Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: calc(100% - 10px);
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:active {
+            background-color: #0056b3;
+        }
+        .item {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .item span {
+            flex: 1;
+        }
+        .item button {
+            background-color: #dc3545;
+            transition: background-color 0.3s;
+        }
+        .item button:active {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Personal Budget Manager</h1>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" placeholder="Enter description">
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" placeholder="Enter amount">
+        </div>
+        <button id="addIncome">Add Income</button>
+        <button id="addExpense">Add Expense</button>
+
+        <h2>Income</h2>
+        <div id="incomeList"></div>
+
+        <h2>Expenses</h2>
+        <div id="expenseList"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const descriptionInput = document.getElementById('description');
+            const amountInput = document.getElementById('amount');
+            const addIncomeBtn = document.getElementById('addIncome');
+            const addExpenseBtn = document.getElementById('addExpense');
+            const incomeList = document.getElementById('incomeList');
+            const expenseList = document.getElementById('expenseList');
+
+            // Initialize items from local storage or set as empty arrays
+            let incomeItems = JSON.parse(localStorage.getItem('incomeItems')) || [];
+            let expenseItems = JSON.parse(localStorage.getItem('expenseItems')) || [];
+
+            // Function to update lists and local storage
+            function updateLists() {
+                incomeList.innerHTML = '';
+                expenseList.innerHTML = '';
+
+                incomeItems.forEach(item => addItemToList(item, incomeList));
+                expenseItems.forEach(item => addItemToList(item, expenseList));
+
+                localStorage.setItem('incomeItems', JSON.stringify(incomeItems));
+                localStorage.setItem('expenseItems', JSON.stringify(expenseItems));
+            }
+
+            // Function to add item to list
+            function addItemToList(item, listElement) {
+                const listItem = document.createElement('div');
+                listItem.classList.add('item');
+                listItem.innerHTML = `
+                    <span>${item.description}</span>
+                    <span>${item.amount}</span>
+                    <button>Delete</button>
+                `;
+                listElement.appendChild(listItem);
+
+                // Delete button event listener
+                const deleteBtn = listItem.querySelector('button');
+                deleteBtn.addEventListener('click', () => {
+                    if (listElement === incomeList) {
+                        incomeItems = incomeItems.filter(i => i !== item);
+                    } else {
+                        expenseItems = expenseItems.filter(i => i !== item);
+                    }
+                    updateLists();
+                });
+            }
+
+            // Event listeners for adding income and expense items
+            addIncomeBtn.addEventListener('click', () => {
+                const description = descriptionInput.value.trim();
+                const amount = parseFloat(amountInput.value.trim());
+
+                if (description && !isNaN(amount) && amount > 0) {
+                    incomeItems.push({ description, amount });
+                    updateLists();
+                    descriptionInput.value = '';
+                    amountInput.value = '';
+                } else {
+                    alert('Please enter valid description and amount.');
+                }
+            });
+
+            addExpenseBtn.addEventListener('click', () => {
+                const description = descriptionInput.value.trim();
+                const amount = parseFloat(amountInput.value.trim());
+
+                if (description && !isNaN(amount) && amount > 0) {
+                    expenseItems.push({ description, amount });
+                    updateLists();
+                    descriptionInput.value = '';
+                    amountInput.value = '';
+                } else {
+                    alert('Please enter valid description and amount.');
+                }
+            });
+
+            // Initial update of lists
+            updateLists();
+        });
+    </script>
+</body>
+</html>

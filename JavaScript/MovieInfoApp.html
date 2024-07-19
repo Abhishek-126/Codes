@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Info App</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .movie {
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .movie img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .movie h2 {
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+        .movie p {
+            font-size: 1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Info App</h1>
+        <input type="text" id="movieTitle" placeholder="Enter movie title" />
+        <button onclick="getMovieInfo()">Search</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function getMovieInfo() {
+            const title = document.getElementById('movieTitle').value.trim();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Loading...</p>';
+
+            if (title === '') {
+                resultsDiv.innerHTML = '<p>Please enter a movie title.</p>';
+                return;
+            }
+
+            const apiKey = 'a9b96e4a'; // Replace with your OMDb API key
+            const apiUrl = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.Response === 'False') {
+                    resultsDiv.innerHTML = `<p>${data.Error}</p>`;
+                    return;
+                }
+
+                resultsDiv.innerHTML = `
+                    <div class="movie">
+                        <img src="${data.Poster}" alt="${data.Title}" />
+                        <h2>${data.Title}</h2>
+                        <p><b>Released:</b> ${data.Released}</p>
+                        <p><b>Genre:</b> ${data.Genre}</p>
+                        <p><b>Director:</b> ${data.Director}</p>
+                        <p><b>Actors:</b> ${data.Actors}</p>
+                        <p><b>Plot:</b> ${data.Plot}</p>
+                        <p><b>IMDb Rating:</b> ${data.imdbRating}</p>
+                    </div>
+                `;
+            } catch (error) {
+                resultsDiv.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

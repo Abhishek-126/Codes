@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .choices {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .choice {
+            width: 80px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .choice:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #333;
+        }
+        .scoreboard {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock-Paper-Scissors</h1>
+        <div class="choices">
+            <button class="choice" onclick="playGame('Rock')">Rock</button>
+            <button class="choice" onclick="playGame('Paper')">Paper</button>
+            <button class="choice" onclick="playGame('Scissors')">Scissors</button>
+        </div>
+        <div id="result" class="result">Make your choice!</div>
+        <div class="scoreboard">
+            <div>Player: <span id="player-score">0</span></div>
+            <div>Computer: <span id="computer-score">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function playGame(playerChoice) {
+            const computerChoice = getComputerChoice();
+            const result = determineWinner(playerChoice, computerChoice);
+
+            if (result === 'win') {
+                playerScore++;
+                document.getElementById('result').textContent = `You win! ${playerChoice} beats ${computerChoice}.`;
+            } else if (result === 'lose') {
+                computerScore++;
+                document.getElementById('result').textContent = `You lose! ${computerChoice} beats ${playerChoice}.`;
+            } else {
+                document.getElementById('result').textContent = `It's a draw! You both chose ${playerChoice}.`;
+            }
+
+            document.getElementById('player-score').textContent = playerScore;
+            document.getElementById('computer-score').textContent = computerScore;
+        }
+
+        function getComputerChoice() {
+            const choices = ['Rock', 'Paper', 'Scissors'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+
+        function determineWinner(player, computer) {
+            if (player === computer) {
+                return 'draw';
+            }
+
+            if (
+                (player === 'Rock' && computer === 'Scissors') ||
+                (player === 'Paper' && computer === 'Rock') ||
+                (player === 'Scissors' && computer === 'Paper')
+            ) {
+                return 'win';
+            } else {
+                return 'lose';
+            }
+        }
+    </script>
+</body>
+</html>

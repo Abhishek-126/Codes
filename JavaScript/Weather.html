@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #87CEEB; /* Sky blue background */
+        }
+        .weather-app {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .location {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .temperature {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        .details {
+            font-size: 1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-app">
+        <div class="location">New York, US</div>
+        <div class="temperature" id="temperature">Loading...</div>
+        <div class="details" id="details"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            //const apiKey = 'bd5e378503939ddaee76f12ad7a97608'; // Replace with your OpenWeather API key
+            const city = 'New York';
+            const country = 'US';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const temp = data.main.temp;
+                    const humidity = data.main.humidity;
+                    const description = data.weather[0].description;
+
+                    document.getElementById('temperature').textContent = `${temp}°C`;
+                    document.getElementById('details').textContent = `Humidity: ${humidity}% | ${description}`;
+                })
+                .catch(error => {
+                    document.getElementById('temperature').textContent = 'Error fetching data';
+                    document.getElementById('details').textContent = error.message;
+                });
+        });
+    </script>
+</body>
+</html>

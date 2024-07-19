@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Lightbox</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #f0f0f0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 10px;
+            max-width: 1000px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 5px;
+        }
+
+        .lightbox.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 3rem;
+            /* Adjust font size as needed */
+            background: -webkit-linear-gradient(left, #00012b, #da1b60);
+            /* For Safari */
+            -webkit-background-clip: text;
+            /* Clip text to the background */
+            -webkit-text-fill-color: transparent;
+            /* Set text fill color to transparent */
+            margin: 0;
+            /* Remove default margin */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Target">
+        <h1>One Piece</h1>
+        <div class="gallery">
+            <!-- Gallery images will be loaded here -->
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAueT5YWJ5sgQsWPqMR7G-rIVru1kbApDlaA&s"
+                alt="Image 1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJTSY3uRneczmoH6OZx0vceLwn0UHpwT1RNg&s"
+                alt="Image 2">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfjCXaSULo0yeU9t5hzomEtxCgbbTEROcGlA&s"
+                alt="Image 3">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHZJ59UvW6fLM-5gELz6kNB_hnpuY-nApkBg&s"
+                alt="Image 4">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoG3WWK37hcexTWVF7OQy94EgCRV7gtUkong&s"
+                alt="Image 5">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY1b6gZzQyWkSCZ-yUmN-whV7Q3934brZxjw&s"
+                alt="Image 6">
+            <img src="https://i.pinimg.com/736x/e1/af/05/e1af05c2a21cb4dfff352db6f6e748b5.jpg"
+                alt="Image 7">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv2BNPHvqBCvQ18ihob3qNDdRkEIaQ_NNY8Q&s"
+                alt="Image 8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9_D843U4XtHsFcN-ViZFNimCwM7pzVs-1BA&s"
+                alt="Image 9">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRaeSmpzOraMN0OmHnbUYcHOLEhYtkS7XlTw&s"
+                alt="Image 10">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-80Svo4gzb18riJiVc6K__3YLH3GY-2wdPQ&s"
+                alt="Image 11">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLPPBBUtfkNIBXpuVdQx6XNjFY7kF0tQbF3g&s"
+                alt="Image 12">
+        </div>
+        <h1>Naruto</h1>
+        <div class="gallery">
+            <!-- Gallery images will be loaded here -->
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbi-6jh9-eUnD4IzIe58SsLCjwOgn6J2XZ8A&s" 
+                alt="image 1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTQwh5Kac7Nnpplkgcchl1QJfnfvvuq0hNHg&s" 
+                alt="image 2">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSktuY1HZXJQe71D4QjZ1Pi3OulnhPKS9CxmA&s" 
+                alt="image 3">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmSAkzXZJ3elYHBlGNnotAg0oS3gyiUygGzQ&s" 
+                alt="image 4">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRslRIVXHZKvK875XJ7bY2XLi8brKgoewXm5g&s" 
+                alt="image 5">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmTt8frDX04JdRQ95Y3CP2keZI6hU9XmXBAA&s" 
+                alt="image 6">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLyN87jZPjfncSEaLdpdDvjzCdUNSF-1WhIA&s" 
+                alt="image 7">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUNXpSvh7fDyYVGBIrvcJlw-YxwvobcNsPYQ&s" 
+                alt="image 8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEY6bYJjSeDqI8vM7w5IT_-Yhv2aRK2rnYPg&s" 
+                alt="image 9">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqY1oCdAv_zWKdA7hONUU_fAMFsu1IdtopaA&s" 
+                alt="image 10">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe0dI7sGV7fS4G5DuI1UUkoWeVotJqCP2xIA&s" 
+                alt="image 11">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAADciY62rO37EX1ERVyjUrKDCiTEwU7wEoQ&s" 
+                alt="image 12">
+        </div>
+        
+    </div>
+    <div class="lightbox" id="lightbox">
+        <button class="close-btn" id="closeBtn">&times;</button>
+        <img id="lightboxImage" src="" alt="Enlarged Image">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.querySelector('.Target');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const closeBtn = document.getElementById('closeBtn');
+
+            gallery.addEventListener('click', (e) => {
+                if (e.target.tagName === 'IMG') {
+                    lightboxImage.src = e.target.src;
+                    lightbox.classList.add('show');
+                }
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target !== lightboxImage) {
+                    lightbox.classList.remove('show');
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                lightbox.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Shopping Cart</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .item button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .cart {
+            margin-top: 20px;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .total {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div class="items">
+            <div class="item" data-id="1">
+                <span>Item 1</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="item" data-id="2">
+                <span>Item 2</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="item" data-id="3">
+                <span>Item 3</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+        <div class="cart">
+            <h2>Cart</h2>
+            <div class="cart-items"></div>
+            <div class="total">Total: $<span id="totalAmount">0.00</span></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.item');
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const totalAmountElement = document.getElementById('totalAmount');
+            
+            // Load cart items from local storage if available
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            // Update cart UI
+            function updateCartUI() {
+                cartItemsContainer.innerHTML = '';
+                let totalAmount = 0;
+                cartItems.forEach(item => {
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.classList.add('cart-item');
+                    cartItemElement.innerHTML = `
+                        <span>${item.name}</span>
+                        <span>$${item.price.toFixed(2)}</span>
+                        <button class="remove-from-cart" data-id="${item.id}">Remove</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItemElement);
+                    totalAmount += item.price;
+                });
+                totalAmountElement.textContent = totalAmount.toFixed(2);
+
+                // Save cart items to local storage
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            }
+
+            // Add item to cart
+            function addToCart(id, name, price) {
+                const itemExistsInCart = cartItems.find(item => item.id === id);
+                if (!itemExistsInCart) {
+                    cartItems.push({ id, name, price });
+                    updateCartUI();
+                }
+            }
+
+            // Remove item from cart
+            function removeFromCart(id) {
+                cartItems = cartItems.filter(item => item.id !== id);
+                updateCartUI();
+            }
+
+            // Event listener for adding to cart
+            items.forEach(item => {
+                const itemId = item.getAttribute('data-id');
+                const itemName = item.querySelector('span').textContent;
+                const itemPrice = Math.random() * 100; // Replace with actual price
+                item.querySelector('.add-to-cart').addEventListener('click', () => {
+                    addToCart(itemId, itemName, itemPrice);
+                });
+            });
+
+            // Event listener for removing from cart
+            cartItemsContainer.addEventListener('click', (event) => {
+                if (event.target.classList.contains('remove-from-cart')) {
+                    const itemId = event.target.getAttribute('data-id');
+                    removeFromCart(itemId);
+                }
+            });
+
+            // Initial cart UI update
+            updateCartUI();
+        });
+    </script>
+</body>
+</html>

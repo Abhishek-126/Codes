@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 90%;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="number"], select {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .expense-list {
+            margin-top: 20px;
+        }
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            padding: 8px 0;
+        }
+        .expense-item button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .summary {
+            margin-top: 20px;
+            border-top: 2px solid #ccc;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Tracker</h1>
+        <form id="expense-form">
+            <label for="description">Description:</label>
+            <input type="text" id="description" required>
+            <label for="category">Category:</label>
+            <select id="category" required>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Other">Other</option>
+            </select>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" min="0.01" step="0.01" required>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <div class="expense-list">
+            <h2>Expense List</h2>
+            <div id="expenses"></div>
+        </div>
+
+        <div class="summary">
+            <h2>Summary</h2>
+            <div>Total Expenses: <span id="total-expenses">$0.00</span></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const expenseForm = document.getElementById('expense-form');
+            const expensesList = document.getElementById('expenses');
+            const totalExpenses = document.getElementById('total-expenses');
+
+            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+            updateExpenseList();
+            updateTotalExpenses();
+
+            expenseForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const description = document.getElementById('description').value.trim();
+                const category = document.getElementById('category').value;
+                const amount = parseFloat(document.getElementById('amount').value);
+
+                if (description === '' || isNaN(amount) || amount <= 0) {
+                    alert('Please enter a valid description and amount.');
+                    return;
+                }
+
+                const newExpense = {
+                    id: Date.now().toString(),
+                    description,
+                    category,
+                    amount
+                };
+
+                expenses.push(newExpense);
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+
+                updateExpenseList();
+                updateTotalExpenses();
+
+                expenseForm.reset();
+            });
+
+            function updateExpenseList() {
+                expensesList.innerHTML = '';
+                expenses.forEach(expense => {
+                    const expenseItem = document.createElement('div');
+                    expenseItem.classList.add('expense-item');
+                    expenseItem.innerHTML = `
+                        <div>${expense.description} - ${expense.category}</div>
+                        <div>$${expense.amount.toFixed(2)}</div>
+                        <button onclick="deleteExpense('${expense.id}')">Delete</button>
+                    `;
+                    expensesList.appendChild(expenseItem);
+                });
+            }
+
+            function updateTotalExpenses() {
+                const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+                totalExpenses.textContent = `$${total.toFixed(2)}`;
+            }
+
+            window.deleteExpense = function(id) {
+                expenses = expenses.filter(expense => expense.id !== id);
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                updateExpenseList();
+                updateTotalExpenses();
+            };
+        });
+    </script>
+</body>
+</html>
